@@ -18,9 +18,7 @@ export default function SetupBiometrics() {
   };
 
   return (
-    <ThemedView
-      style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
-    >
+    <ThemedView className="flex justify-center items-center">
       <ThemedText>Enable biometric login?</ThemedText>
       <Button title="Enable" onPress={enableBiometrics} />
     </ThemedView>
