@@ -3,7 +3,6 @@ import Transaction from "@/components/custom/transaction";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { useThemeColor } from "@/hooks/useThemeColor";
 import { useAuth } from "@/utils/auth-provider";
 import {
   sampleTransactions,
@@ -15,9 +14,18 @@ import { RefreshControl, ScrollView } from "react-native";
 
 export default function HomeScreen() {
   const { user } = useAuth();
-  const [data, setData] = useState<TransactionType[]>(sampleTransactions);
+  const [data, setData] = useState<TransactionType[]>(
+    sortByDateDesc(sampleTransactions)
+  );
   const [refreshing, setRefreshing] = useState(false);
-  const backgroundColor = useThemeColor({}, "background");
+
+  const handleRefresh = useCallback((): void => {
+    setRefreshing(true);
+    setTimeout((): void => {
+      setData(sortByDateDesc(sampleTransactions));
+      setRefreshing(false);
+    }, 1000);
+  }, []);
 
   // This part is to fix the RefreshControl disappearing after router.back() function
   const [listKey, setListKey] = useState<number>(0);
@@ -30,13 +38,7 @@ export default function HomeScreen() {
   );
   // -----------------
 
-  const handleRefresh = useCallback((): void => {
-    setRefreshing(true);
-    setTimeout((): void => {
-      setData([...sampleTransactions]);
-      setRefreshing(false);
-    }, 1000);
-  }, []);
+  const totalAmount = data.reduce((total, { amount }) => total + amount, 0);
 
   if (!user)
     return (
@@ -58,9 +60,14 @@ export default function HomeScreen() {
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
       >
-        <HomeDashboard />
+        <HomeDashboard amount={totalAmount} />
         <Transaction data={data} />
       </ScrollView>
     </ThemedView>
   );
 }
+
+const sortByDateDesc = (txs: TransactionType[]): TransactionType[] =>
+  [...txs].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );

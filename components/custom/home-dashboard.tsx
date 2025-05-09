@@ -1,6 +1,7 @@
+import { useTheme } from "@/hooks/useTheme";
 import { tailwindToHex } from "@/utils/tailwind-convert";
 import React from "react";
-import { TouchableOpacity, useColorScheme } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { ThemedText } from "../ThemedText";
 import { ThemedView } from "../ThemedView";
 import { IconSymbol } from "../ui/IconSymbol";
@@ -14,7 +15,7 @@ export default function HomeDashboard({
   revealAmount?: boolean;
   setRevealAmount?: () => void;
 }) {
-  const theme = useColorScheme() ?? "light";
+  const theme = useTheme();
 
   return (
     <ThemedView className="space-y-1 p-5 py-4 pb-8 !bg-transparent">

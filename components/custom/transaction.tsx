@@ -16,10 +16,10 @@ export default function Transaction({
         data={data}
         scrollEnabled={false}
         keyExtractor={(tx) => tx.id}
+        ListHeaderComponent={() => <TransactionHeader />}
         renderItem={({ item }: ListRenderItemInfo<TransactionType>) => (
           <TransactionItem item={item} />
         )}
-        ListHeaderComponent={() => <TransactionHeader />}
       />
     </ThemedView>
   );
