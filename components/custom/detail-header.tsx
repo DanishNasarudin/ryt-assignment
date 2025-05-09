@@ -14,7 +14,7 @@ export default function DetailHeader() {
     <SafeAreaView className="dark:dark h-0 pb-4">
       <ThemedView className="px-5 flex flex-row justify-between gap-4 w-screen">
         <TouchableOpacity
-          className="dark:dark !text-accent bg-popover border-border border-[1px] w-10 h-10 flex justify-center items-center rounded-full"
+          className="dark:dark !text-accent bg-popover border-border border-[1px] w-12 h-12 flex justify-center items-center rounded-full"
           onPress={() => router.back()}
         >
           <IconSymbol
