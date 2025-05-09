@@ -12,6 +12,11 @@ import { useFocusEffect } from "expo-router";
 import React, { useCallback, useState } from "react";
 import { RefreshControl, ScrollView } from "react-native";
 
+const sortByDateDesc = (txs: TransactionType[]): TransactionType[] =>
+  [...txs].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );
+
 export default function HomeScreen() {
   const { user } = useAuth();
   const [data, setData] = useState<TransactionType[]>(
@@ -49,16 +54,14 @@ export default function HomeScreen() {
     );
 
   return (
-    <ThemedView
-      className="rounded-3xl !bg-secondary"
-      style={{ flex: 1, paddingTop: 110 }}
-    >
+    <ThemedView className="!bg-secondary flex-1 pt-[110px]">
       <ScrollView
         key={listKey}
         showsVerticalScrollIndicator={false}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
+        contentContainerClassName="flex-1"
       >
         <HomeDashboard amount={totalAmount} />
         <Transaction data={data} />
@@ -66,8 +69,3 @@ export default function HomeScreen() {
     </ThemedView>
   );
 }
-
-const sortByDateDesc = (txs: TransactionType[]): TransactionType[] =>
-  [...txs].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );

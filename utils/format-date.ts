@@ -16,3 +16,37 @@ export function formatDateString(dateString: string): string {
     year: "numeric",
   });
 }
+
+export function formatDateFull(dateString: string): string {
+  const date = new Date(dateString);
+  const weekdays = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ] as const;
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ] as const;
+
+  const weekday = weekdays[date.getUTCDay()];
+  const day = String(date.getUTCDate()).padStart(2, "0");
+  const month = months[date.getUTCMonth()];
+  const year = date.getUTCFullYear();
+
+  return `${weekday}, ${day} ${month} ${year}`;
+}

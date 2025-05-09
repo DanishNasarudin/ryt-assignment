@@ -1,3 +1,4 @@
+import DetailHeader from "@/components/custom/detail-header";
 import HomeHeader from "@/components/custom/home-header";
 import { useAuth } from "@/utils/providers/auth-provider";
 import { Stack } from "expo-router";
@@ -32,6 +33,7 @@ export default function HomeLayout() {
         options={{
           headerTitle: "Details",
           headerShown: !!user,
+          header: () => <DetailHeader />,
         }}
       />
     </Stack>

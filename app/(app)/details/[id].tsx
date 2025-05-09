@@ -1,29 +1,40 @@
-import { ThemedText } from "@/components/ThemedText";
+import Detail from "@/components/custom/detail";
+import DetailDashboard from "@/components/custom/detail-dashboard";
 import { ThemedView } from "@/components/ThemedView";
 import { sampleTransactions } from "@/utils/sample-transactions";
-import { useLocalSearchParams } from "expo-router";
-import React from "react";
-import { ScrollView } from "react-native";
+import { useFocusEffect, useLocalSearchParams } from "expo-router";
+import React, { useCallback, useState } from "react";
 
 export default function DetailsScreen() {
   const { id } = useLocalSearchParams();
 
   const details = sampleTransactions.filter((item) => item.id === id);
 
+  const [refreshing, setRefreshing] = useState(false);
+
+  const handleRefresh = useCallback((): void => {
+    setRefreshing(true);
+    setTimeout((): void => {
+      // setData(sortByDateDesc(sampleTransactions));
+      setRefreshing(false);
+    }, 1000);
+  }, []);
+
+  // This part is to fix the RefreshControl disappearing after router.back() function
+  const [listKey, setListKey] = useState<number>(0);
+
+  useFocusEffect(
+    useCallback(() => {
+      setRefreshing(false);
+      setListKey((prev) => prev + 1);
+    }, [])
+  );
+  // -----------------
+
   return (
-    <ThemedView>
-      <ScrollView
-        className="w-full h-full p-5"
-        automaticallyAdjustsScrollIndicatorInsets
-        contentInsetAdjustmentBehavior="automatic"
-        // contentInset={{ bottom: 0 }}
-        // scrollIndicatorInsets={{ bottom: 0 }}
-      >
-        <ThemedText type="subtitle">Name: {details[0].description}</ThemedText>
-        <ThemedText type="subtitle">Date: {details[0].date}</ThemedText>
-        <ThemedText type="subtitle">Type: {details[0].type}</ThemedText>
-        <ThemedText type="subtitle">Amount: {details[0].amount}</ThemedText>
-      </ScrollView>
+    <ThemedView className="!bg-secondary flex-1 pt-[110px]">
+      <DetailDashboard data={details[0]} />
+      <Detail data={details[0]} />
     </ThemedView>
   );
 }
