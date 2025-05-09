@@ -1,5 +1,5 @@
 import HomeHeader from "@/components/custom/home-header";
-import { useAuth } from "@/utils/auth-provider";
+import { useAuth } from "@/utils/providers/auth-provider";
 import { Stack } from "expo-router";
 import React from "react";
 

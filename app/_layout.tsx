@@ -9,7 +9,7 @@ import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
-import AuthProvider from "@/utils/auth-provider";
+import Providers from "@/utils/providers";
 import "../global.css";
 
 export const unstable_settings = {
@@ -36,11 +36,11 @@ export default function RootLayout() {
   }
 
   return (
-    <AuthProvider>
+    <Providers>
       <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
         <Slot />
         <StatusBar style="auto" />
       </ThemeProvider>
-    </AuthProvider>
+    </Providers>
   );
 }

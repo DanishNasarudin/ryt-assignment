@@ -3,7 +3,7 @@ import Transaction from "@/components/custom/transaction";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { useAuth } from "@/utils/auth-provider";
+import { useAuth } from "@/utils/providers/auth-provider";
 import {
   sampleTransactions,
   Transaction as TransactionType,

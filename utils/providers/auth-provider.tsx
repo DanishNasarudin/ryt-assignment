@@ -5,7 +5,7 @@ import { Alert } from "react-native";
 import {
   authenticateWithBiometrics,
   checkBiometricsAvailability,
-} from "./biometrics";
+} from "../biometrics";
 
 type User = {
   name: string;

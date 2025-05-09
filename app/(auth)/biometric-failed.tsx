@@ -1,5 +1,5 @@
-import { useAuth } from "@/utils/auth-provider";
 import { authenticateWithBiometrics } from "@/utils/biometrics";
+import { useAuth } from "@/utils/providers/auth-provider";
 import { router } from "expo-router";
 import { Button, Text, View } from "react-native";
 

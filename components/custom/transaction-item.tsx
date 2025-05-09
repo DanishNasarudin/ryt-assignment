@@ -1,6 +1,7 @@
 import { useTheme } from "@/hooks/useTheme";
 import { capitaliseFirst } from "@/utils/capitalise-first";
 import { formatDateString } from "@/utils/format-date";
+import { useMask } from "@/utils/providers/mask-provider";
 import { Transaction } from "@/utils/sample-transactions";
 import { tailwindToHex } from "@/utils/tailwind-convert";
 import { router } from "expo-router";
@@ -12,6 +13,7 @@ import { IconSymbol } from "../ui/IconSymbol";
 
 export default function TransactionItem({ item }: { item: Transaction }) {
   const theme = useTheme();
+  const { mask } = useMask();
 
   return (
     <ThemedView className="w-full px-5 py-4 !bg-transparent">
@@ -38,8 +40,20 @@ export default function TransactionItem({ item }: { item: Transaction }) {
               {capitaliseFirst(item.type)} · {formatDateString(item.date)}
             </ThemedText>
           </ThemedView>
-          <ThemedText className="!text-base font-bold">
-            RM {item.amount.toFixed(2)}
+          <ThemedText
+            className={`!text-base font-bold ${
+              !mask
+                ? item.amount < 0
+                  ? "!text-red-600 dark:!text-red-500"
+                  : "!text-green-600 dark:!text-green-500"
+                : ""
+            }`}
+          >
+            {mask
+              ? "RM ****"
+              : `${item.amount < 0 ? "- RM " : "RM "}${Math.abs(
+                  item.amount
+                ).toFixed(2)}`}
           </ThemedText>
         </ThemedView>
       </TouchableOpacity>

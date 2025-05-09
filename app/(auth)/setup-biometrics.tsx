@@ -1,7 +1,7 @@
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
-import { useAuth } from "@/utils/auth-provider";
 import { authenticateWithBiometrics } from "@/utils/biometrics";
+import { useAuth } from "@/utils/providers/auth-provider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import { Button } from "react-native";
