@@ -1,6 +1,6 @@
-import HeaderHome from "@/components/custom/header-home";
+import HomeHeader from "@/components/custom/home-header";
 import { useAuth } from "@/utils/auth-provider";
-import { Stack } from "expo-router/stack";
+import { Stack } from "expo-router";
 import React from "react";
 
 export default function HomeLayout() {
@@ -15,6 +15,7 @@ export default function HomeLayout() {
               headerLargeTitleShadowVisible: false,
               headerShadowVisible: true,
               headerTransparent: true,
+              detachPreviousScreen: false,
             }),
       }}
     >
@@ -23,7 +24,7 @@ export default function HomeLayout() {
         options={{
           headerTitle: "Transactions",
           headerShown: !!user,
-          header: () => <HeaderHome />,
+          header: () => <HomeHeader />,
         }}
       />
       <Stack.Screen

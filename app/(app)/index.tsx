@@ -1,29 +1,42 @@
+import HomeDashboard from "@/components/custom/home-dashboard";
+import Transaction from "@/components/custom/transaction";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useThemeColor } from "@/hooks/useThemeColor";
 import { useAuth } from "@/utils/auth-provider";
-import { sampleTransactions, Transaction } from "@/utils/sample-transactions";
-import { router } from "expo-router";
-import React, { useState } from "react";
-import { FlatList, ListRenderItemInfo, TouchableOpacity } from "react-native";
+import {
+  sampleTransactions,
+  Transaction as TransactionType,
+} from "@/utils/sample-transactions";
+import { useFocusEffect } from "expo-router";
+import React, { useCallback, useState } from "react";
+import { RefreshControl, ScrollView } from "react-native";
 
 export default function HomeScreen() {
   const { user } = useAuth();
-  const [data, setData] = useState<Transaction[]>(sampleTransactions);
+  const [data, setData] = useState<TransactionType[]>(sampleTransactions);
   const [refreshing, setRefreshing] = useState(false);
-
   const backgroundColor = useThemeColor({}, "background");
 
-  const handleRefresh = () => {
-    setRefreshing(true);
-    setData(sampleTransactions);
+  // This part is to fix the RefreshControl disappearing after router.back() function
+  const [listKey, setListKey] = useState<number>(0);
 
-    // mock fetching
-    setTimeout(() => {
+  useFocusEffect(
+    useCallback(() => {
+      setRefreshing(false);
+      setListKey((prev) => prev + 1);
+    }, [])
+  );
+  // -----------------
+
+  const handleRefresh = useCallback((): void => {
+    setRefreshing(true);
+    setTimeout((): void => {
+      setData([...sampleTransactions]);
       setRefreshing(false);
     }, 1000);
-  };
+  }, []);
 
   if (!user)
     return (
@@ -34,28 +47,20 @@ export default function HomeScreen() {
     );
 
   return (
-    <FlatList<Transaction>
-      className="w-full h-full p-5 pt-[56px]"
-      style={[{ backgroundColor }]}
-      data={data}
-      keyExtractor={(tx) => tx.id}
-      automaticallyAdjustsScrollIndicatorInsets
-      contentInsetAdjustmentBehavior="automatic"
-      contentInset={{ bottom: 0 }}
-      scrollIndicatorInsets={{ bottom: 0 }}
-      refreshing={refreshing}
-      onRefresh={handleRefresh}
-      renderItem={({ item }: ListRenderItemInfo<Transaction>) => (
-        <ThemedView className="w-full mb-4">
-          <TouchableOpacity onPress={() => router.push(`/details/${item.id}`)}>
-            <ThemedText className="font-bold">{item.description}</ThemedText>
-            <ThemedText>{item.date}</ThemedText>
-            <ThemedText>
-              {item.type.toUpperCase()} - ${item.amount.toFixed(2)}
-            </ThemedText>
-          </TouchableOpacity>
-        </ThemedView>
-      )}
-    />
+    <ThemedView
+      className="rounded-3xl !bg-secondary"
+      style={{ flex: 1, paddingTop: 110 }}
+    >
+      <ScrollView
+        key={listKey}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
+        }
+      >
+        <HomeDashboard />
+        <Transaction data={data} />
+      </ScrollView>
+    </ThemedView>
   );
 }
