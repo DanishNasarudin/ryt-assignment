@@ -17,7 +17,7 @@ export default function BiometricFailedScreen() {
   };
 
   return (
-    <ThemedView className="w-full h-full flex justify-center items-center p-6">
+    <ThemedView className="w-full h-full flex justify-center items-center p-6 flex-1">
       <ThemedText className="!text-2xl font-bold mb-2">
         Authentication Failed
       </ThemedText>

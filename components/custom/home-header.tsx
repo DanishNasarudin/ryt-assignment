@@ -42,7 +42,7 @@ export default function HomeHeader() {
     <SafeAreaView className="dark:dark h-0 pb-4">
       <ThemedView className="px-5 flex flex-row justify-between gap-4 w-screen">
         <TouchableOpacity
-          className="dark:dark !text-accent bg-popover border-border border-[1px] w-10 h-10 flex justify-center items-center rounded-full"
+          className="dark:dark !text-accent bg-popover border-border border-[1px] w-12 h-12 flex justify-center items-center rounded-full"
           onPress={() => setOpenSearch((prev) => !prev)}
         >
           <IconSymbol
@@ -51,17 +51,17 @@ export default function HomeHeader() {
             size={16}
           />
         </TouchableOpacity>
-        <ThemedView className="w-[66vw] h-10 overflow-hidden rounded-full !bg-transparent">
+        <ThemedView className="flex-1 h-12 overflow-hidden rounded-full !bg-transparent">
           <Animated.View style={animatedStyle}>
             <TextInput
-              className="w-[66vw] h-10 p-2 px-4 bg-background border-border border-[1px] rounded-full text-foreground"
+              className="flex-grow !h-12 p-2 px-4 bg-background border-border border-[1px] rounded-full text-foreground"
               onChangeText={setSearch}
               placeholder="Search transaction.."
               value={search}
             />
             {search !== "" && (
               <TouchableOpacity
-                className="absolute right-0 top-[50%] translate-y-[-50%] translate-x-[-50%]"
+                className="absolute right-0 top-[50%] translate-y-[-50%] translate-x-[-70%]"
                 onPress={() => setSearch("")}
               >
                 <IconSymbol
@@ -77,10 +77,10 @@ export default function HomeHeader() {
           {userExist ? (
             <Image
               source={{ uri: "https://placehold.co/40/png" }}
-              className="w-10 h-10 rounded-full"
+              className="w-12 h-12 rounded-full"
             />
           ) : (
-            <TouchableOpacity className="dark:dark w-10 h-10 rounded-full bg-popover border-border border-[1px] flex justify-center items-center">
+            <TouchableOpacity className="dark:dark w-12 h-12 rounded-full bg-popover border-border border-[1px] flex justify-center items-center">
               <IconSymbol
                 name="person"
                 color={tailwindToHex("accent", theme)}

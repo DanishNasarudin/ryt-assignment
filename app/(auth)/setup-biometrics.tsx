@@ -1,5 +1,6 @@
 import { ThemedText } from "@/components/custom/themed-text";
 import { ThemedView } from "@/components/custom/themed-view";
+import { IconSymbol } from "@/components/ui/IconSymbol";
 import { useAuth } from "@/lib/providers/auth-provider";
 import { authenticateWithBiometrics } from "@/lib/utils/biometrics";
 import AsyncStorage from "@react-native-async-storage/async-storage";
@@ -18,7 +19,8 @@ export default function SetupBiometrics() {
   };
 
   return (
-    <ThemedView className="flex justify-center items-center">
+    <ThemedView className="flex justify-center items-center flex-1">
+      <IconSymbol size={64} name="faceid" color={"#808080"} />
       <ThemedText className="!text-2xl font-bold">
         Enable biometric login?
       </ThemedText>
