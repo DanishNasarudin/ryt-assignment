@@ -1,3 +1,5 @@
+import { Transaction } from "./sample-transactions";
+
 export function formatDateString(dateString: string): string {
   const date = new Date(dateString);
   const now = Date.now();
@@ -50,3 +52,8 @@ export function formatDateFull(dateString: string): string {
 
   return `${weekday}, ${day} ${month} ${year}`;
 }
+
+export const sortByDateDesc = (txs: Transaction[]): Transaction[] =>
+  [...txs].sort(
+    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
+  );

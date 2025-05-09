@@ -3,31 +3,54 @@ import Transaction from "@/components/custom/transaction";
 import { ThemedText } from "@/components/ThemedText";
 import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
+import { sortByDateDesc } from "@/utils/format-date";
 import { useAuth } from "@/utils/providers/auth-provider";
 import {
-  sampleTransactions,
+  generateSampleTransactions,
   Transaction as TransactionType,
 } from "@/utils/sample-transactions";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "expo-router";
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { RefreshControl, ScrollView } from "react-native";
-
-const sortByDateDesc = (txs: TransactionType[]): TransactionType[] =>
-  [...txs].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime()
-  );
 
 export default function HomeScreen() {
   const { user } = useAuth();
   const [data, setData] = useState<TransactionType[]>(
-    sortByDateDesc(sampleTransactions)
+    sortByDateDesc(generateSampleTransactions())
   );
   const [refreshing, setRefreshing] = useState(false);
 
-  const handleRefresh = useCallback((): void => {
+  const loadTransactions = useCallback(async () => {
+    try {
+      const json = await AsyncStorage.getItem("sample_transactions");
+      if (json) {
+        const stored: TransactionType[] = JSON.parse(json);
+        setData(sortByDateDesc(stored));
+      } else {
+        const fresh = generateSampleTransactions();
+        setData(sortByDateDesc(fresh));
+        await AsyncStorage.setItem(
+          "sample_transactions",
+          JSON.stringify(fresh)
+        );
+      }
+    } catch {
+      const fallback = generateSampleTransactions();
+      setData(sortByDateDesc(fallback));
+    }
+  }, []);
+
+  useEffect(() => {
+    loadTransactions();
+  }, [loadTransactions]);
+
+  const handleRefresh = useCallback(async () => {
     setRefreshing(true);
-    setTimeout((): void => {
-      setData(sortByDateDesc(sampleTransactions));
+    setTimeout(async () => {
+      const fresh = generateSampleTransactions();
+      setData(sortByDateDesc(fresh));
+      await AsyncStorage.setItem("sample_transactions", JSON.stringify(fresh));
       setRefreshing(false);
     }, 1000);
   }, []);
@@ -61,7 +84,7 @@ export default function HomeScreen() {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
-        contentContainerClassName="flex-1"
+        {...(data.length === 0 ? { contentContainerStyle: { flex: 1 } } : {})}
       >
         <HomeDashboard amount={totalAmount} />
         <Transaction data={data} />

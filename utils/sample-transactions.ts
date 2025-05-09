@@ -32,25 +32,29 @@ export const sampleTransactions: Transaction[] = [
   },
 ];
 
-function getTotal(transactions: Transaction[]): number {
-  return transactions.reduce((sum, t) => sum + t.amount, 0);
-}
+export function generateSampleTransactions(count: number = 20): Transaction[] {
+  const txs = [...sampleTransactions];
+  const getTotal = (arr: Transaction[]) =>
+    arr.reduce((sum, t) => sum + t.amount, 0);
 
-while (sampleTransactions.length < 20) {
-  const id = (sampleTransactions.length + 1).toString();
-  const base = Math.round(Math.random() * 500 * 100) / 100;
-  const sign = Math.random() > 0.5 ? 1 : -1;
-  let amount = base * sign;
+  while (txs.length < count) {
+    const id = (txs.length + 1).toString();
+    const base = Math.round(Math.random() * 500 * 100) / 100;
+    const sign = Math.random() > 0.5 ? 1 : -1;
+    let amount = base * sign;
 
-  if (getTotal(sampleTransactions) + amount < 0) {
-    amount = base;
+    if (getTotal(txs) + amount < 0) {
+      amount = base;
+    }
+
+    txs.push({
+      id,
+      amount,
+      date: new Date(Date.now() - Math.random() * 1e10).toISOString(),
+      description: `Random Transaction ${id}`,
+      type: amount >= 0 ? "credit" : "debit",
+    });
   }
 
-  sampleTransactions.push({
-    id,
-    amount,
-    date: new Date(Date.now() - Math.random() * 1e10).toISOString(),
-    description: `Random Transaction ${id}`,
-    type: amount >= 0 ? "credit" : "debit",
-  });
+  return txs;
 }
