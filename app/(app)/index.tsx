@@ -5,6 +5,7 @@ import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
 import { sortByDateDesc } from "@/utils/format-date";
 import { useAuth } from "@/utils/providers/auth-provider";
+import { useSearch } from "@/utils/providers/search-provider";
 import {
   generateSampleTransactions,
   Transaction as TransactionType,
@@ -20,6 +21,7 @@ export default function HomeScreen() {
     sortByDateDesc(generateSampleTransactions())
   );
   const [refreshing, setRefreshing] = useState(false);
+  const { search } = useSearch();
 
   const loadTransactions = useCallback(async () => {
     try {
@@ -72,7 +74,7 @@ export default function HomeScreen() {
     return (
       <ThemedView className="w-full h-full flex justify-center items-center">
         <IconSymbol size={64} name="faceid" color={"#808080"} />
-        <ThemedText>Login</ThemedText>
+        <ThemedText>Login with Face ID</ThemedText>
       </ThemedView>
     );
 
@@ -84,10 +86,20 @@ export default function HomeScreen() {
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={handleRefresh} />
         }
-        {...(data.length === 0 ? { contentContainerStyle: { flex: 1 } } : {})}
+        {...(data.length === 0 || search !== ""
+          ? { contentContainerStyle: { flex: 1 } }
+          : {})}
       >
         <HomeDashboard amount={totalAmount} />
-        <Transaction data={data} />
+        <Transaction
+          data={
+            search !== ""
+              ? data.filter((item) =>
+                  item.description.toLowerCase().includes(search.toLowerCase())
+                )
+              : data
+          }
+        />
       </ScrollView>
     </ThemedView>
   );

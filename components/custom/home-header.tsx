@@ -1,3 +1,4 @@
+import { useSearch } from "@/utils/providers/search-provider";
 import { tailwindToHex } from "@/utils/tailwind-convert";
 import React, { useEffect, useState } from "react";
 import {
@@ -19,7 +20,7 @@ import { IconSymbol } from "../ui/IconSymbol";
 export default function HomeHeader() {
   const theme = useColorScheme() ?? "light";
   const userExist = false;
-  const [search, setSearch] = useState("");
+  const { search, setSearch } = useSearch();
   const [openSearch, setOpenSearch] = useState(false);
 
   const screenWidth = Dimensions.get("window").width;
@@ -37,8 +38,6 @@ export default function HomeHeader() {
     transform: [{ translateX: translate.value }],
   }));
 
-  // TODO: Need context for search filter
-
   return (
     <SafeAreaView className="dark:dark h-0 pb-4">
       <ThemedView className="px-5 flex flex-row justify-between gap-4 w-screen">
@@ -55,7 +54,7 @@ export default function HomeHeader() {
         <ThemedView className="w-[66vw] h-10 overflow-hidden rounded-full !bg-transparent">
           <Animated.View style={animatedStyle}>
             <TextInput
-              className="w-[66vw] h-10 p-2 px-4 bg-background border-border border-[1px] rounded-full"
+              className="w-[66vw] h-10 p-2 px-4 bg-background border-border border-[1px] rounded-full text-foreground"
               onChangeText={setSearch}
               placeholder="Search transaction.."
               value={search}

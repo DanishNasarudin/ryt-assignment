@@ -22,7 +22,7 @@ export default function Transaction({
     );
   }
   return (
-    <ThemedView className="!bg-background py-4 border-border border-[1px] rounded-3xl">
+    <ThemedView className="!bg-background py-4 border-border border-[1px] rounded-3xl flex-1">
       <FlatList<TransactionType>
         data={data}
         scrollEnabled={false}
