@@ -1,7 +1,7 @@
 import Detail from "@/components/custom/detail";
 import DetailDashboard from "@/components/custom/detail-dashboard";
-import { ThemedView } from "@/components/ThemedView";
-import { Transaction } from "@/utils/sample-transactions";
+import { ThemedView } from "@/components/custom/themed-view";
+import { Transaction } from "@/lib/utils/sample-transactions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useLocalSearchParams } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";

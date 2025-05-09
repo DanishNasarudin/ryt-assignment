@@ -1,5 +1,5 @@
 import React from "react";
-import AuthProvider from "./providers/auth-provider";
+import { AuthProvider } from "./providers/auth-provider";
 import { MaskProvider } from "./providers/mask-provider";
 import { SearchProvider } from "./providers/search-provider";
 

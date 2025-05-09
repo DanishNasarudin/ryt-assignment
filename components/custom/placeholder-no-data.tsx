@@ -1,9 +1,9 @@
-import { useTheme } from "@/hooks/useTheme";
-import { tailwindToHex } from "@/utils/tailwind-convert";
+import { useTheme } from "@/lib/hooks/useTheme";
+import { tailwindToHex } from "@/lib/utils/tailwind-convert";
 import React from "react";
-import { ThemedText } from "../ThemedText";
-import { ThemedView } from "../ThemedView";
 import { IconSymbol } from "../ui/IconSymbol";
+import { ThemedText } from "./themed-text";
+import { ThemedView } from "./themed-view";
 
 export default function PlaceholderNoData() {
   const theme = useTheme();

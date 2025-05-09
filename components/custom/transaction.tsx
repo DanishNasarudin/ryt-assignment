@@ -1,9 +1,9 @@
-import { Transaction as TransactionType } from "@/utils/sample-transactions";
+import { Transaction as TransactionType } from "@/lib/utils/sample-transactions";
 import React from "react";
 import { FlatList, ListRenderItemInfo } from "react-native";
-import { ThemedText } from "../ThemedText";
-import { ThemedView } from "../ThemedView";
 import PlaceholderNoData from "./placeholder-no-data";
+import { ThemedText } from "./themed-text";
+import { ThemedView } from "./themed-view";
 import TransactionItem from "./transaction-item";
 
 export default function Transaction({

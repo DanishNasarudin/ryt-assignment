@@ -1,11 +1,11 @@
-import { useTheme } from "@/hooks/useTheme";
-import { tailwindToHex } from "@/utils/tailwind-convert";
+import { useTheme } from "@/lib/hooks/useTheme";
+import { tailwindToHex } from "@/lib/utils/tailwind-convert";
 import { router } from "expo-router";
 import React from "react";
 import { TouchableOpacity } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ThemedView } from "../ThemedView";
 import { IconSymbol } from "../ui/IconSymbol";
+import { ThemedView } from "./themed-view";
 
 export default function DetailHeader() {
   const theme = useTheme();

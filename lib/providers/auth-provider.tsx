@@ -5,7 +5,7 @@ import { Alert } from "react-native";
 import {
   authenticateWithBiometrics,
   checkBiometricsAvailability,
-} from "../biometrics";
+} from "../utils/biometrics";
 
 type User = {
   name: string;
@@ -90,11 +90,7 @@ function useProtectedRoute(
   }, [user, segments]);
 }
 
-export default function AuthProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
 
   useProtectedRoute(user, setUser);

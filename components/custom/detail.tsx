@@ -1,11 +1,11 @@
-import { capitaliseFirst } from "@/utils/capitalise-first";
-import { formatDateFull } from "@/utils/format-date";
-import { Transaction } from "@/utils/sample-transactions";
+import { capitaliseFirst } from "@/lib/utils/capitalise-first";
+import { formatDateFull } from "@/lib/utils/format-date";
+import { Transaction } from "@/lib/utils/sample-transactions";
 import React from "react";
 import { View } from "react-native";
-import { ThemedText } from "../ThemedText";
-import { ThemedView } from "../ThemedView";
 import PlaceholderNoData from "./placeholder-no-data";
+import { ThemedText } from "./themed-text";
+import { ThemedView } from "./themed-view";
 
 export default function Detail({ data }: { data?: Transaction }) {
   if (!data) {

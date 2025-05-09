@@ -8,8 +8,8 @@ import { Slot } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import "react-native-reanimated";
 
-import { useColorScheme } from "@/hooks/useColorScheme";
-import Providers from "@/utils/providers";
+import { useColorScheme } from "@/lib/hooks/useColorScheme";
+import Providers from "@/lib/providers";
 import "../global.css";
 
 export const unstable_settings = {

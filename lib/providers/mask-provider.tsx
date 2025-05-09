@@ -5,7 +5,7 @@ import {
   useContext,
   useState,
 } from "react";
-import { authenticateWithBiometrics } from "../biometrics";
+import { authenticateWithBiometrics } from "../utils/biometrics";
 
 type MaskContextType = {
   mask: boolean;

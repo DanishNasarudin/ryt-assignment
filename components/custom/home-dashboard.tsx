@@ -1,11 +1,11 @@
-import { useTheme } from "@/hooks/useTheme";
-import { useMask } from "@/utils/providers/mask-provider";
-import { tailwindToHex } from "@/utils/tailwind-convert";
+import { useTheme } from "@/lib/hooks/useTheme";
+import { useMask } from "@/lib/providers/mask-provider";
+import { tailwindToHex } from "@/lib/utils/tailwind-convert";
 import React from "react";
 import { TouchableOpacity } from "react-native";
-import { ThemedText } from "../ThemedText";
-import { ThemedView } from "../ThemedView";
 import { IconSymbol } from "../ui/IconSymbol";
+import { ThemedText } from "./themed-text";
+import { ThemedView } from "./themed-view";
 
 export default function HomeDashboard({ amount = -10.0 }: { amount?: number }) {
   const theme = useTheme();

@@ -1,4 +1,4 @@
-import { useThemeColor } from "@/hooks/useThemeColor";
+import { useThemeColor } from "@/lib/hooks/useThemeColor";
 import React, { forwardRef } from "react";
 import { ScrollView, ScrollViewProps } from "react-native";
 

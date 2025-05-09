@@ -1,15 +1,15 @@
 import HomeDashboard from "@/components/custom/home-dashboard";
+import { ThemedText } from "@/components/custom/themed-text";
+import { ThemedView } from "@/components/custom/themed-view";
 import Transaction from "@/components/custom/transaction";
-import { ThemedText } from "@/components/ThemedText";
-import { ThemedView } from "@/components/ThemedView";
 import { IconSymbol } from "@/components/ui/IconSymbol";
-import { sortByDateDesc } from "@/utils/format-date";
-import { useAuth } from "@/utils/providers/auth-provider";
-import { useSearch } from "@/utils/providers/search-provider";
+import { useAuth } from "@/lib/providers/auth-provider";
+import { useSearch } from "@/lib/providers/search-provider";
+import { sortByDateDesc } from "@/lib/utils/format-date";
 import {
   generateSampleTransactions,
   Transaction as TransactionType,
-} from "@/utils/sample-transactions";
+} from "@/lib/utils/sample-transactions";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { useFocusEffect } from "expo-router";
 import React, { useCallback, useEffect, useState } from "react";

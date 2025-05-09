@@ -1,7 +1,9 @@
-import { authenticateWithBiometrics } from "@/utils/biometrics";
-import { useAuth } from "@/utils/providers/auth-provider";
+import { ThemedText } from "@/components/custom/themed-text";
+import { ThemedView } from "@/components/custom/themed-view";
+import { useAuth } from "@/lib/providers/auth-provider";
+import { authenticateWithBiometrics } from "@/lib/utils/biometrics";
 import { router } from "expo-router";
-import { Button, Text, View } from "react-native";
+import { Button } from "react-native";
 
 export default function BiometricFailedScreen() {
   const { setUser } = useAuth();
@@ -15,12 +17,14 @@ export default function BiometricFailedScreen() {
   };
 
   return (
-    <View className="w-full h-full flex justify-center items-center p-6">
-      <Text className="text-2xl font-bold mb-2">Authentication Failed</Text>
-      <Text className="text-base text-zinc-600 mb-6">
+    <ThemedView className="w-full h-full flex justify-center items-center p-6">
+      <ThemedText className="!text-2xl font-bold mb-2">
+        Authentication Failed
+      </ThemedText>
+      <ThemedText className="!text-base !text-zinc-400 dark:!text-zinc-600 mb-6">
         We couldn't verify your identity.
-      </Text>
+      </ThemedText>
       <Button title="Try Again" onPress={handleRetry} />
-    </View>
+    </ThemedView>
   );
 }

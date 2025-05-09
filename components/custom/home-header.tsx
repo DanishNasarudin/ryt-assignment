@@ -1,5 +1,5 @@
-import { useSearch } from "@/utils/providers/search-provider";
-import { tailwindToHex } from "@/utils/tailwind-convert";
+import { useSearch } from "@/lib/providers/search-provider";
+import { tailwindToHex } from "@/lib/utils/tailwind-convert";
 import React, { useEffect, useState } from "react";
 import {
   Dimensions,
@@ -14,8 +14,8 @@ import Animated, {
   withTiming,
 } from "react-native-reanimated";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { ThemedView } from "../ThemedView";
 import { IconSymbol } from "../ui/IconSymbol";
+import { ThemedView } from "./themed-view";
 
 export default function HomeHeader() {
   const theme = useColorScheme() ?? "light";
